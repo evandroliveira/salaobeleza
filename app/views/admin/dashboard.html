@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Admin - Salão Beauty{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <a href="{{ url_for('admin.listar_clientes') }}" class="btn btn-outline-primary w-100">
+                <h5>👥 Clientes</h5>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('admin.listar_servicos') }}" class="btn btn-outline-success w-100">
+                <h5>💇 Serviços</h5>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('admin.listar_produtos') }}" class="btn btn-outline-warning w-100">
+                <h5>🛍️ Produtos</h5>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('admin.listar_agendamentos') }}" class="btn btn-outline-danger w-100">
+                <h5>📅 Agendamentos</h5>
+            </a>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <a href="{{ url_for('admin.relatorios') }}" class="btn btn-info w-100">
+                <h5>📊 Relatórios e Estatísticas</h5>
+            </a>
+        </div>
+    </div>
+
+    <h2>Resumo Geral</h2>
+    <hr>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Clientes</h5>
+                    <h2 class="card-text text-primary">{{ total_clientes }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Agendamentos Confirmados</h5>
+                    <h2 class="card-text text-success">{{ total_agendamentos }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Serviços Ativos</h5>
+                    <h2 class="card-text text-info">{{ total_servicos }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Próximos 7 dias</h2>
+    <hr>
+    
+    {% if agendamentos_proximos %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Serviço</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for agendamento in agendamentos_proximos %}
+                        <tr>
+                            <td>{{ agendamento.cliente.nome }}</td>
+                            <td>{{ agendamento.servico.nome }}</td>
+                            <td>{{ agendamento.data_agendamento.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ agendamento.data_agendamento.strftime('%H:%M') }}</td>
+                            <td>R$ {{ "%.2f"|format(agendamento.valor_total) }}</td>
+                            <td>
+                                <a href="{{ url_for('admin.editar_agendamento', agendamento_id=agendamento.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">Nenhum agendamento próximo.</div>
+    {% endif %}
+</div>
+{% endblock %}

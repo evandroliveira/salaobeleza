@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Cliente - Salão Beauty{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Meus Agendamentos</h1>
+        <hr>
+        
+        <a href="{{ url_for('cliente.agendar') }}" class="btn btn-primary mb-3">+ Novo Agendamento</a>
+        <a href="{{ url_for('cliente.perfil') }}" class="btn btn-secondary mb-3">Meu Perfil</a>
+        
+        {% if agendamentos %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Serviço</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Duração</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for agendamento in agendamentos %}
+                            <tr>
+                                <td><strong>{{ agendamento.servico.nome }}</strong></td>
+                                <td>{{ agendamento.data_agendamento.strftime('%d/%m/%Y') }}</td>
+                                <td>{{ agendamento.data_agendamento.strftime('%H:%M') }}</td>
+                                <td>{{ agendamento.servico.duracao_minutos }} min</td>
+                                <td>R$ {{ "%.2f"|format(agendamento.valor_total) }}</td>
+                                <td>
+                                    {% if agendamento.status == 'confirmado' %}
+                                        <span class="badge bg-success">Confirmado</span>
+                                    {% elif agendamento.status == 'realizado' %}
+                                        <span class="badge bg-info">Realizado</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Cancelado</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if agendamento.status == 'confirmado' %}
+                                        <form method="POST" action="{{ url_for('cliente.cancelar_agendamento', agendamento_id=agendamento.id) }}" style="display:inline;">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Cancelar</button>
+                                        </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                Você não tem agendamentos ainda. <a href="{{ url_for('cliente.agendar') }}">Agende agora!</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

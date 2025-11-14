@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Bem-vindo - Salão Beauty{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">💇‍♀️ Bem-vindo ao Salão Beauty</h1>
+            <p class="lead">Seu salão de beleza online</p>
+            <hr class="my-4">
+            <p>Agende seus serviços de forma fácil e rápida!</p>
+            
+            {% if not session.usuario_id %}
+                <a class="btn btn-primary btn-lg" href="{{ url_for('auth.login') }}" role="button">Login</a>
+                <a class="btn btn-success btn-lg ms-2" href="{{ url_for('auth.registro') }}" role="button">Cadastre-se</a>
+            {% else %}
+                {% if session.usuario_tipo == 'cliente' %}
+                    <a class="btn btn-primary btn-lg" href="{{ url_for('cliente.dashboard') }}" role="button">Meus Agendamentos</a>
+                    <a class="btn btn-success btn-lg ms-2" href="{{ url_for('cliente.agendar') }}" role="button">Novo Agendamento</a>
+                {% else %}
+                    <a class="btn btn-primary btn-lg" href="{{ url_for('admin.dashboard') }}" role="button">Dashboard Admin</a>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">💇 Serviços</h5>
+                        <p class="card-text">Escova Progressiva, Mechas, Corte e muito mais!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">📅 Agendamentos</h5>
+                        <p class="card-text">Agende com antecedência sem conflitos de horário.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">🛍️ Produtos</h5>
+                        <p class="card-text">Qualidade e confiabilidade nos melhores preços.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

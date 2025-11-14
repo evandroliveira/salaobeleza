@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Agendamento - Salão Beauty{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1>Editar Agendamento</h1>
+        <hr>
+        
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Cliente</label>
+                <input type="text" class="form-control" value="{{ agendamento.cliente.nome }}" disabled>
+            </div>
+            
+            <div class="mb-3">
+                <label for="servico_id" class="form-label">Serviço</label>
+                <select class="form-control" id="servico_id" name="servico_id" required>
+                    {% for servico in servicos %}
+                        <option value="{{ servico.id }}" {% if servico.id == agendamento.servico_id %}selected{% endif %}>
+                            {{ servico.nome }} ({{ servico.duracao_minutos }} min)
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="data_agendamento" class="form-label">Data</label>
+                <input type="date" class="form-control" id="data_agendamento" name="data_agendamento" 
+                       value="{{ agendamento.data_agendamento.strftime('%Y-%m-%d') }}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="hora_agendamento" class="form-label">Hora</label>
+                <input type="time" class="form-control" id="hora_agendamento" name="hora_agendamento" 
+                       value="{{ agendamento.data_agendamento.strftime('%H:%M') }}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="confirmado" {% if agendamento.status == 'confirmado' %}selected{% endif %}>Confirmado</option>
+                    <option value="realizado" {% if agendamento.status == 'realizado' %}selected{% endif %}>Realizado</option>
+                    <option value="cancelado" {% if agendamento.status == 'cancelado' %}selected{% endif %}>Cancelado</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="notas" class="form-label">Notas</label>
+                <textarea class="form-control" id="notas" name="notas" rows="3">{{ agendamento.notas or '' }}</textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <a href="{{ url_for('admin.listar_agendamentos') }}" class="btn btn-secondary">Voltar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

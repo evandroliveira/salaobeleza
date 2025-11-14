@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Relatórios - Salão Beauty{% endblock %}
+
+{% block content %}
+<h1>📊 Relatórios e Estatísticas</h1>
+<hr>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Receita do Mês</h5>
+                <h3 class="text-success">R$ {{ "%.2f"|format(total_realizado) }}</h3>
+                <small class="text-muted">{{ mes_ano }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Próximos 7 Dias</h5>
+                <h3 class="text-primary">{{ agendamentos_confirmados_proximos }}</h3>
+                <small class="text-muted">Agendamentos confirmados</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5>Serviços Mais Populares</h5>
+            </div>
+            <div class="card-body">
+                {% if servicos_populares %}
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Serviço</th>
+                                <th>Agendamentos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for servico in servicos_populares %}
+                                <tr>
+                                    <td>{{ servico[0] }}</td>
+                                    <td><span class="badge bg-primary">{{ servico[1] }}</span></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="text-muted">Nenhum dado disponível</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5>Clientes Mais Frequentes</h5>
+            </div>
+            <div class="card-body">
+                {% if clientes_frequentes %}
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Agendamentos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cliente in clientes_frequentes %}
+                                <tr>
+                                    <td>{{ cliente[0] }}</td>
+                                    <td><span class="badge bg-success">{{ cliente[1] }}</span></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="text-muted">Nenhum dado disponível</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Voltar</a>
+</div>
+{% endblock %}

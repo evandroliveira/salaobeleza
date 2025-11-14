@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Novo Agendamento - Salão Beauty{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1>Novo Agendamento</h1>
+        <hr>
+        
+        <form method="POST" class="needs-validation">
+            <div class="mb-3">
+                <label for="servico_id" class="form-label">Selecione o Serviço</label>
+                <select class="form-control" id="servico_id" name="servico_id" required>
+                    <option value="">-- Escolha um serviço --</option>
+                    {% for servico in servicos %}
+                        <option value="{{ servico.id }}" data-duracao="{{ servico.duracao_minutos }}">
+                            {{ servico.nome }} - R$ {{ "%.2f"|format(servico.preco) }} ({{ servico.duracao_minutos }} min)
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="data_agendamento" class="form-label">Data</label>
+                <input type="date" class="form-control" id="data_agendamento" name="data_agendamento" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="hora_agendamento" class="form-label">Hora</label>
+                <input type="time" class="form-control" id="hora_agendamento" name="hora_agendamento" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="notas" class="form-label">Notas (opcional)</label>
+                <textarea class="form-control" id="notas" name="notas" rows="4"></textarea>
+            </div>
+            
+            <div class="alert alert-info">
+                <strong>⏱️ Importante:</strong> Serviços como Escova Progressiva e Mechas requerem 4 horas de duração.
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Confirmar Agendamento</button>
+            <a href="{{ url_for('cliente.dashboard') }}" class="btn btn-secondary">Voltar</a>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('data_agendamento').min = new Date().toISOString().split('T')[0];
+</script>
+{% endblock %}

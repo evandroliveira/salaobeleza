@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Serviço - Salão Beauty{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1>Editar Serviço</h1>
+        <hr>
+        
+        <form method="POST">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome do Serviço</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ servico.nome }}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="4">{{ servico.descricao or '' }}</textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="preco" class="form-label">Preço (R$)</label>
+                <input type="number" class="form-control" id="preco" name="preco" step="0.01" value="{{ servico.preco }}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="duracao_minutos" class="form-label">Duração (minutos)</label>
+                <input type="number" class="form-control" id="duracao_minutos" name="duracao_minutos" value="{{ servico.duracao_minutos }}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="ativo" class="form-label">
+                    <input type="checkbox" id="ativo" name="ativo" {% if servico.ativo %}checked{% endif %}>
+                    Ativo
+                </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <a href="{{ url_for('admin.listar_servicos') }}" class="btn btn-secondary">Voltar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
