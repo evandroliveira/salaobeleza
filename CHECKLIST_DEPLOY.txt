@@ -16,7 +16,7 @@
       • psycopg2-binary==2.9.9 (NOVO)
 
 ✅ .gitignore
-   └─ Criado com:
+   └─ Criado com: 22
       • __pycache__/
       • *.py[cod]
       • *.db (SQLite excluído)
