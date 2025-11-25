@@ -1,4 +1,4 @@
-# 📋 Guia de Uso - Sistema de Agendamento Salão Beauty
+# 📋 Guia de Uso - Studio Fanciele Cesario
 
 ## 🚀 Inicializando o Sistema
 

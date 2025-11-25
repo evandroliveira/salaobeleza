@@ -75,11 +75,12 @@ def create_app():
     
     return app
 
+# Expor a aplicação no nível do módulo para WSGI servers (gunicorn, uwsgi, etc.)
+app = create_app()
+
 if __name__ == '__main__':
-    app = create_app()
-    
     # Configurações para produção vs desenvolvimento
     debug = os.getenv('FLASK_ENV') != 'production'
     port = int(os.getenv('PORT', 5000))
-    
+
     app.run(debug=debug, host='0.0.0.0', port=port)

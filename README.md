@@ -1,6 +1,6 @@
-# Sistema de Agendamento para Salão de Beleza
+# Sistema de Agendamento - Studio Fanciele Cesario
 
-Um sistema MVC completo para gerenciar agendamentos de um salão de beleza com áreas separadas para clientes e proprietários.
+Um sistema MVC completo para gerenciar agendamentos do `Studio Fanciele Cesario` com áreas separadas para clientes e proprietários.
 
 ## Características
 

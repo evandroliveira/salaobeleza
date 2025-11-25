@@ -1,4 +1,4 @@
-# 🛠️ Documentação Técnica - Sistema Salão Beauty
+# 🛠️ Documentação Técnica - Studio Fanciele Cesario
 
 ## 📁 Estrutura do Projeto
 

@@ -1,0 +1,18 @@
+# Variáveis de ambiente para produção (cópie/cole no painel da sua plataforma de hosting)
+
+# Gere uma SECRET_KEY segura (já gerada para você abaixo)
+SECRET_KEY=3790dd152d859d6792aa6e5e12bd37f0145ea93314649245cf9737061146e4eb
+
+# Ambiente
+FLASK_ENV=production
+
+# Porta (opcional)
+PORT=5000
+
+# DATABASE_URL: exemplo de formato PostgreSQL (substitua pelo valor do seu provedor)
+# DATABASE_URL=postgresql://usuario:senha@host:5432/nome_do_banco
+
+# Observações:
+# - Não comite este arquivo em repositórios públicos.
+# - No Render: insira cada par KEY=VALUE em Environment → Add Environment Variable.
+# - Depois de configurar, redeploy o serviço (ou clique em Manual Deploy).

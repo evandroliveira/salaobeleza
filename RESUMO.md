@@ -1,4 +1,4 @@
-# 🎉 RESUMO FINAL - Sistema de Agendamento Salão Beauty
+# 🎉 RESUMO FINAL - Studio Fanciele Cesario
 
 ## ✅ O que foi criado
 
